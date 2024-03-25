@@ -19,6 +19,11 @@ SOURCE = ft_isalpha.c \
 		ft_memcmp.c \
 		ft_memchr.c \
 		ft_memmove.c \
+		ft_bzero.c \
+		ft_atoi.c \
+		ft_calloc.c \
+		ft_strdup.c \
+		ft_substr.c \
 		
 NAME = libft.a
 
