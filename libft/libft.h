@@ -6,7 +6,7 @@
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:54:33 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/03/26 19:21:17 by jsanz-sa         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:48:24 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stddef.h>
+# include <stdio.h>
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
@@ -42,4 +43,5 @@ char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
+char	**ft_split(char const *s, char c);
 #endif
