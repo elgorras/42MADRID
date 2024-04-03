@@ -6,13 +6,13 @@
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:05:28 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/03/29 17:01:02 by jsanz-sa         ###   ########.fr       */
+/*   Updated: 2024/03/26 20:45:19 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	startpoint(char const *s1, char const *set)
+int	startpoint(char const *s1, char const *set)
 {
 	int		start;
 	int		stop;
@@ -40,7 +40,7 @@ static int	startpoint(char const *s1, char const *set)
 	return (start);
 }
 
-static int	endpoint(char const *s1, char const *set)
+int	endpoint(char const *s1, char const *set)
 {
 	int		stop;
 	int		z;

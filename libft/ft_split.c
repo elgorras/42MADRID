@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/27 11:32:37 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/04/03 10:42:18 by jsanz-sa         ###   ########.fr       */
+/*   Created: 2024/04/03 11:05:33 by jsanz-sa          #+#    #+#             */
+/*   Updated: 2024/04/03 11:06:06 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ static char	**free_array(char **array, int z)
 
 static char	*allocate_cpy(const char *s, int i, int end)
 {
-	int		leng;
+	int		length;
 	char	*substr;
 
-	leng = end - i;
-	substr = malloc((leng + 1) * sizeof(char));
+	length = end - i;
+	substr = malloc((length + 1) * sizeof(char));
 	if (substr == NULL)
 		return (NULL);
-	ft_strlcpy(substr, s + i, leng + 1);
-	substr[leng] = '\0';
+	strncpy(substr, s + i, length);
+	substr[length] = '\0';
 	return (substr);
 }
 

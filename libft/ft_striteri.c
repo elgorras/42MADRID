@@ -1,41 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 12:30:35 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/04/01 14:33:05 by jsanz-sa         ###   ########.fr       */
+/*   Created: 2024/04/02 11:59:29 by jsanz-sa          #+#    #+#             */
+/*   Updated: 2024/04/02 12:11:55 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, void *src, size_t len)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	unsigned char	*dest;
-	unsigned char	*source;
-	size_t			i;
+	unsigned int	i;
+	size_t			leng;
 
-	dest = (unsigned char *)dst;
-	source = (unsigned char *)src;
-	if (!dest && !source)
-		return (NULL);
-	if (dest < source)
+	i = 0;
+	leng = ft_strlen(s);
+	while (i < leng)
 	{
-		i = 0;
-		while (i < len)
-		{
-			dest[i] = source[i];
-			i++;
-		}
+		f(i, &s[i]);
+		i++;
 	}
-	else if (dest > source)
-	{
-		i = len;
-		while (i--)
-			dest[i] = source[i];
-	}
-	return ((void *)dest);
 }
