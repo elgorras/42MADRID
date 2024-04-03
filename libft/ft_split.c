@@ -6,7 +6,7 @@
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:32:37 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/03/29 18:13:49 by jsanz-sa         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:42:18 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ static char	**free_array(char **array, int z)
 
 static char	*allocate_cpy(const char *s, int i, int end)
 {
-	int		length;
+	int		leng;
 	char	*substr;
 
-	length = end - i;
-	substr = malloc((length + 1) * sizeof(char));
+	leng = end - i;
+	substr = malloc((leng + 1) * sizeof(char));
 	if (substr == NULL)
 		return (NULL);
-	strncpy(substr, s + i, length);
-	substr[length] = '\0';
+	ft_strlcpy(substr, s + i, leng + 1);
+	substr[leng] = '\0';
 	return (substr);
 }
 
