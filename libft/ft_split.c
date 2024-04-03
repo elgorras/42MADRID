@@ -6,110 +6,92 @@
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:32:37 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/04/01 13:14:44 by jsanz-sa         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:56:42 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_split(const char *s, char c);
-
-char	**allocate_memory(int num_splits)
+static char	**free_array(char **array, int z)
 {
-	char	**result;
+	while (z >= 0)
+	{
+		free(array[z]);
+		z--;
+	}
+	free(array);
+	return (NULL);
+}
+
+static char	*allocate_cpy(const char *s, int i, int end)
+{
+	int		leng;
+	char	*substr;
+
+	leng = end - i;
+	substr = malloc((leng + 1) * sizeof(char));
+	if (substr == NULL)
+		return (NULL);
+	ft_strlcpy(substr, s + i, leng + 1);
+	substr[leng] = '\0';
+	return (substr);
+}
+
+static char	**allocate_substr(char **array, const char *s, char c)
+{
 	int		i;
+	int		end;
+	int		z;
 
-	result = (char **)malloc((num_splits + 1) * sizeof(char *));
-	if (!result)
-		return (NULL);
+	z = 0;
 	i = 0;
-	while (i <= num_splits)
+	while (s[i])
 	{
-		result[i] = NULL;
-		i++;
+		if (s[i] != c)
+		{
+			end = i;
+			while (s[end] && s[end] != c)
+				end++;
+			array[z] = allocate_cpy(s, i, end);
+			if (array[z] == NULL)
+				return (free_array(array, z));
+			z++;
+			i = end;
+		}
+		else
+			i++;
 	}
-	return (result);
+	array[z] = NULL;
+	return (array);
 }
 
-int	count_splits(const char *s, char c)
+static char	**num_substr(const char *s, char c)
 {
-	int	count;
-	int	inside_word;
+	int		count;
+	int		i;
+	char	**array;
 
+	i = 0;
 	count = 0;
-	inside_word = 0;
-	while (*s != '\0')
+	while (s[i] != '\0')
 	{
-		if (*s == c)
-			inside_word = 0;
-		else if (!inside_word)
-		{
-			inside_word = 1;
+		if ((s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
+			|| (i == 0 && s[i] != c) || (s[i] == '\0' && s[i - 1] != c))
 			count++;
-		}
-		s++;
-	}
-	return (count);
-}
-
-char	*extract_word(const char *start, const char *end)
-{
-	int			length;
-	char		*word;
-	const char	*p;
-
-	length = end - start;
-	word = (char *)malloc((length + 1) * sizeof(char));
-	if (word == NULL)
-		return (NULL);
-	p = start;
-	while (p < end)
-	{
-		*word = *p;
-		word++;
-		p++;
-	}
-	*word = '\0';
-	return (word - length);
-}
-
-void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
 		i++;
 	}
-	free(split);
+	array = malloc((count + 1) * sizeof(char *));
+	if (array == NULL)
+		return (NULL);
+	return (allocate_substr(array, s, c));
 }
 
-char	**ft_split(const char *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	int			num_splits;
-	char		**result;
-	int			index;
-	const char	*start;
+	char	**array;
 
-	num_splits = count_splits(s, c);
-	result = allocate_memory(num_splits);
-	index = 0;
-	start = s;
-	if (result == NULL)
+	array = num_substr(s, c);
+	if (array == NULL)
 		return (NULL);
-	while (*s != '\0')
-	{
-		if (*s == c)
-		{
-			if (s > start)
-				result[index++] = extract_word(start, s);
-			start = s + 1;
-		}
-		s++;
-	}
-	if (s > start)
-		result[index++] = extract_word(start, s);
-	return (result);
+	return (array);
 }
