@@ -35,6 +35,12 @@ SOURCE = ft_isalpha.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
 
+BONUS = ft_lstnew.c \
+		ft_lstadd_front.c \
+		ft_lstsize.c \
+		ft_lstlast.c \
+		ft_lstadd_back.c \
+		ft_lstdelone.c \
 
 NAME = libft.a
 
@@ -44,10 +50,16 @@ $(NAME): $(SOURCE:.c=.o)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-.PHONY: clean fclean re all
+.PHONY: clean fclean re all bonus
+
+bonus: $(BONUS:.c=.o)
+
+$(BONUS:.c=.o):
+	${CC} ${CFLAGS} -c $(BONUS)
+	ar -rcs ${NAME} ${BONUS:.c=.o}
 
 clean:
-	@rm -f $(SOURCE:.c=.o)
+	@rm -f $(SOURCE:.c=.o) $(BONUS:.c=.o)
 
 fclean: clean
 	@rm -f $(NAME)
