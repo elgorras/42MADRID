@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 13:29:59 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/04/08 11:36:16 by jsanz-sa         ###   ########.fr       */
+/*   Created: 2024/04/08 12:04:05 by jsanz-sa          #+#    #+#             */
+/*   Updated: 2024/04/08 13:36:08 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*aux;
-	t_list	*backup;
+	t_list	*newlist;
+	t_list	*nodo;
+	void	*mapped;
 
-	if (!lst || !del)
-		return ;
-	backup = NULL;
-	aux = *lst;
-	while (aux != NULL)
+	if (!lst || !f || !del)
+		return (NULL);
+	newlist = NULL;
+	while (lst != NULL)
 	{
-		backup = aux->next;
-		del(aux->content);
-		free(aux);
-		aux = backup;
+		mapped = f(lst->content);
+		nodo = ft_lstnew(mapped);
+		if (nodo == NULL)
+		{
+			ft_lstclear(&newlist, del);
+			del(mapped);
+			return (NULL);
+		}
+		ft_lstadd_back(&newlist, nodo);
+		lst = lst->next;
 	}
-	*lst = NULL;
+	return (newlist);
 }

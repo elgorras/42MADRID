@@ -6,7 +6,7 @@
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:12:23 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/03/19 13:12:52 by jsanz-sa         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:30:14 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	unsigned long	total;
 	unsigned long	i;
 
+	if (!dst && dstsize == 0)
+		return (ft_strlen(src));
 	leng_src = ft_strlen(src);
 	leng_dst = ft_strlen(dst);
 	total = leng_src + leng_dst;

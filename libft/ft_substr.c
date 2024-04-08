@@ -6,7 +6,7 @@
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:51:04 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/03/25 18:44:52 by jsanz-sa         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:25:47 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char			*substring;
 	size_t			count;
 
+	if (!s)
+		return (NULL);
 	i = start;
 	count = 0;
 	if (ft_strlen(s) <= start)

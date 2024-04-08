@@ -6,7 +6,7 @@
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:05:33 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/04/03 11:14:06 by jsanz-sa         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:26:34 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char	**ft_split(char const *s, char c)
 {
 	char	**array;
 
+	if (!s)
+		return (NULL);
 	array = num_substr(s, c);
 	if (array == NULL)
 		return (NULL);

@@ -6,23 +6,18 @@
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:13:40 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/03/26 16:47:29 by jsanz-sa         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:51:15 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static char	*copy_strings(char *string,
+		const char *s1, const char *s2, size_t len)
 {
-	char	*string;
-	size_t	len;
 	size_t	i;
 
 	i = 0;
-	len = ft_strlen(s1) + ft_strlen(s2);
-	string = malloc(len + 1);
-	if (string == NULL)
-		return (NULL);
 	while (i < len)
 	{
 		if (*s1 != '\0')
@@ -39,4 +34,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	string[i] = '\0';
 	return (string);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*string;
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	string = malloc(len + 1);
+	if (string == NULL)
+		return (NULL);
+	return (copy_strings(string, s1, s2, len));
 }

@@ -6,13 +6,13 @@
 /*   By: jsanz-sa <jsanz-sa@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:05:28 by jsanz-sa          #+#    #+#             */
-/*   Updated: 2024/03/26 20:45:19 by jsanz-sa         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:54:24 by jsanz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	startpoint(char const *s1, char const *set)
+static int	startpoint(char const *s1, char const *set)
 {
 	int		start;
 	int		stop;
@@ -40,7 +40,7 @@ int	startpoint(char const *s1, char const *set)
 	return (start);
 }
 
-int	endpoint(char const *s1, char const *set)
+static int	endpoint(char const *s1, char const *set)
 {
 	int		stop;
 	int		z;
@@ -67,15 +67,30 @@ int	endpoint(char const *s1, char const *set)
 	return (ft_strlen(s1) - len);
 }
 
+static char	*copy_strings(char *string, char const *s1, int start, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < (len - 1))
+	{
+		string[i] = s1[start];
+		start++;
+		i++;
+	}
+	string[i] = '\0';
+	return (string);
+}
+
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		start;
 	int		end;
 	int		len;
 	char	*string;
-	int		i;
 
-	i = 0;
+	if (!s1 || !set)
+		return (NULL);
 	start = startpoint(s1, set);
 	end = endpoint(s1, set);
 	len = ft_strlen(s1) - (start + end) + 1;
@@ -85,12 +100,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 		string = malloc(len);
 	if (string == NULL)
 		return (NULL);
-	while (i < (len - 1))
-	{
-		string[i] = s1[start];
-		start++;
-		i++;
-	}
-	string[i] = '\0';
+	copy_strings(string, s1, start, len);
 	return (string);
 }
